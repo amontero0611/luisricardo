@@ -1,0 +1,211 @@
+<html>
+ 
+<head>
+<title>Luis Ricardo</title>
+
+<!-- Load c3.css **-->
+<link href="c3js/c3.css" rel="stylesheet" type="text/css">
+
+<style media=print>
+<!--.sld
+	{left:0 ;
+	width:9.0in;
+	height:6.5in;
+	font-size:80% }
+  
+</style>
+
+
+<script language=JavaScript>
+
+<!--function DoOnLoad() {  }  //-->
+
+  
+function mandato(comando) {
+	
+    var xhttp = new XMLHttpRequest(),
+    method = "GET",
+    url = "http://nodered-lr.mybluemix.net/command?command=" + comando;
+    
+    xhttp.open( method, url, true ); // false for synchronous request
+    
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) { 
+          document.getElementById("result").innerHTML = xhttp.responseText; 
+      }
+    };
+    
+    xhttp.send( null );
+}
+
+function readColor(color) {
+	//color red,green,blue
+    var xhttp = new XMLHttpRequest(),
+    method = "GET",
+    url = "http://nodered-lr.mybluemix.net/data" + color; 
+    
+    
+    xhttp.open( method, url, true ); // false for synchronous request
+    
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) { 
+          var obj = JSON.parse(xhttp.responseText);
+          if (color == "red") {document.getElementById("redVal").innerHTML = obj.R;}
+          if (color == "green") {document.getElementById("greenVal").innerHTML = obj.G;}
+          if (color == "blue") {document.getElementById("blueVal").innerHTML = obj.B;}
+      }
+    };
+    
+    xhttp.send( null );
+}
+
+var myVar = setInterval(myTimer, 3000);
+
+function myTimer() {
+    readColor('red');
+    readColor('green');
+    readColor('blue');
+}
+
+
+</script>
+
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<map name="map_s8">
+
+<area id="#forward" shape=rect coords="106,54,203,151" href="javascript:(function(){mandato('forward');})()">
+
+<area id="#back" shape=rect coords="106,240,203,337" href="javascript:(function(){mandato('back');})()">
+
+<area id="#left" shape=rect coords="11,143,108,240" href="javascript:(function(){mandato('left');})()">
+  
+<area id="#right" shape=rect coords="201, 143, 298, 240" href="javascript:(function(){mandato('right');})()">
+
+<area id="#stop" shape=rect coords="131, 168, 178, 215" href="javascript:(function(){mandato('stop');})()">
+  
+ 
+<center><img src=Slide002.gif border=0 usemap="#map_s8"></center>
+
+
+
+<!-- Load d3.js and c3.js -->
+<script src="c3js/d3.v3.min.js" charset="utf-8"></script>
+<script src="c3js/c3.min.js"></script>
+
+
+<table width="50%" style="table-layout:fixed;" align="center">
+        <col style="width:16%">
+        <col style="width:16%">
+        <col style="width:16%">
+<tbody><tr>
+
+<td> 
+<div id="redGauge"></div>
+<script>
+  var redGauge = c3.generate({
+    bindto: "#redGauge",
+    data: {
+        columns: [
+            ["R", 0]
+        ],
+        type: "gauge"
+    },
+    gauge: {
+    },
+    color: { 
+        pattern: ["#ff0000"], threshold: { values: [0]  }
+    },
+    size: {
+        height: 100
+    }
+});
+
+var myRedUpdate = setInterval(myRedTimer, 3000);
+function myRedTimer() {
+    redGauge.load({
+        columns: [["R", document.getElementById("redVal").innerHTML]]
+    });
+}
+
+</script>
+</td>
+
+<td>
+<div id="greenGauge"></div>
+<script>
+  var greenGauge = c3.generate({
+    bindto: "#greenGauge",
+    data: {
+        columns: [
+            ["G", 0]
+        ],
+        type: "gauge"
+    },
+    gauge: {
+    },
+    color: { 
+        pattern: ["#00ff00"], threshold: { values: [0] }
+    },
+    size: {
+        height: 100
+    }
+});
+
+var myGreenUpdate = setInterval(myGreenTimer, 3000);
+function myGreenTimer() {
+    greenGauge.load({
+        columns: [["G", document.getElementById("greenVal").innerHTML]]
+    });
+}
+
+</script>
+</td>
+
+<td>
+<div id="blueGauge"></div>
+<script>
+  var blueGauge = c3.generate({
+    bindto: "#blueGauge",
+    data: {
+        columns: [
+            ["B", 0]
+        ],
+        type: "gauge"
+    },
+    gauge: {
+    },
+    color: { 
+        pattern: ["#0000ff"], threshold: { values: [0] }
+    },
+    size: {
+        height: 100
+    }
+});
+
+var myBlueUpdate = setInterval(myBlueTimer, 3000);
+function myBlueTimer() {
+    blueGauge.load({
+        columns: [["B", document.getElementById("blueVal").innerHTML]]
+    });
+}
+
+</script>
+</td>
+
+</tr></tbody>
+</table>
+
+<br>
+
+<p style="color:#D8D8D8;" id="result" >OK</p>
+
+<p hidden id="redVal">0</p>
+<p hidden id="greenVal">0</p>
+<p hidden id="blueVal">0</p>
+
+</body>
+
+</html>
