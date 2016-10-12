@@ -9,4 +9,4 @@ Included in this project:
 - A web page for controlling the robot. This web page should be deployed on a web server.
 - A nodeRED flow for brokering messages between the control page or control app and the robot. This nodeRED flow 
 needs to be deployed on an IBM BLUEMIX environment for exploiting the following services: Watson IoT, Cloudant, Twilio, and 
-Twitter intergation.
+Twitter integration.
