@@ -14,6 +14,7 @@ Included in this project:
 The best is to start this project using BLUEMIX:
 - Creating a new application using the nodeRED buildpack and import the supplied nodes.
 - Creating a new application using the Statics Web Server builpack and deploying the supplied website application.
+
 Then using MIT AppInventor2:
 - Creating a new project for the mobile application and importing the AIA file.
 
