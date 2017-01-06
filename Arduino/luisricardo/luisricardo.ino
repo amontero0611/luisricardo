@@ -11,7 +11,7 @@ boolean debug=false;
 String wifiCCSID = "Angel GS7";
 String wifiPwd = "p0ughkeeps1e";
 //String wifiCCSID = "Casa";
-//String wifiPwd = "WQLAT8BGGROGYSOIGUS365DSGSE";
+//String wifiPwd = "************";
 String publishInterval = "3000"; 
 
 SoftwareSerial WF1(3, 2); // RX | TX
