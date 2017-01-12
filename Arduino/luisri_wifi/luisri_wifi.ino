@@ -12,10 +12,10 @@
 char ssid[20];
 char password[50];
 
-#define ORG "z0boaj"
+#define ORG "ORG"
 #define DEVICE_TYPE "ESP8266"
 #define DEVICE_ID "luisri_wifi"
-#define TOKEN "Cant1dub1"
+#define TOKEN "TOKEN"
 
 //-------- Customize the above values --------
 
